@@ -11,26 +11,27 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v2
         with:
-          node-version: 16
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run tests
-        run: npm test
+          username: ${{ secrets.mondli24 }}
+          password: ${{ secrets.Mshiki@98 }}
 
       - name: Build Docker image
-        run: docker build -t my-sample-app .
+        run: |
+          docker build -t yourusername/sample-app .
+          docker tag yourusername/sample-app yourusername/sample-app:${GITHUB_SHA}
 
       - name: Push Docker image to Docker Hub
         run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker tag my-sample-app yourdockerhub/my-sample-app
-          docker push yourdockerhub/my-sample-app
+          docker push yourusername/sample-app
+          docker push yourusername/sample-app:${GITHUB_SHA}
+
