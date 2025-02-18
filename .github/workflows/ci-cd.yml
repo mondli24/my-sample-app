@@ -31,6 +31,6 @@ jobs:
 
       - name: Push Docker image to Docker Hub
         run: |
-          echo "${{ secrets.Mshiki@98 }}" | docker login -u "${{ secrets.mondli24 }}" --password-stdin
+          echo "${{ secrets.Mshiki@98 }}" | docker login -u "${{ secrets.mondl24 }}" --password-stdin
           docker tag my-sample-app yourdockerhub/my-sample-app
           docker push yourdockerhub/my-sample-app
